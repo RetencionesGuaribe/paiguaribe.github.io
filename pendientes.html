@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacunaciones Pendientes - Sistema de Vacunación Infantil</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">
+                    <i class="fas fa-calendar-check me-2"></i>Vacunaciones Pendientes
+                </h2>
+            </div>
+            
+            <div class="card-body">
+                <!-- Filtros -->
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label for="tipoVacuna" class="form-label">Filtrar por tipo de vacuna:</label>
+                        <select class="form-select" id="tipoVacuna">
+                            <option value="todas">Todas las vacunas</option>
+                            <option value="penta">Pentavalente</option>
+                            <option value="polio">Polio</option>
+                            <option value="aa">Antiamarílica (AA)</option>
+                            <option value="srp">SRP</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="fechaConsulta" class="form-label">Fecha de consulta:</label>
+                        <input type="date" class="form-control" id="fechaConsulta">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="sector" class="form-label">Sector:</label>
+                        <select class="form-select" id="sector">
+                            <option value="todos">Todos los sectores</option>
+                            <option value="norte">Norte</option>
+                            <option value="sur">Sur</option>
+                            <option value="este">Este</option>
+                            <option value="oeste">Oeste</option>
+                            <option value="central">Central</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Acordeón de Vacunas Pendientes -->
+                <div class="accordion" id="acordeonVacunas">
+                    <!-- Pentavalente -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                             <button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapsePenta">
+                                <i class="fas fa-syringe me-2"></i>
+                                Pentavalente (≤ 6 años)
+                                <span class="badge bg-danger ms-2">12</span>
+                            </button>
+                        </h2>
+                        <div id="collapsePenta" class="accordion-collapse collapse show">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Edad</th>
+                                                <th>Dosis Pendiente</th>
+                                                <th>Fecha Última Dosis</th>
+                                                <th>Sector</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos se llenarán dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Polio -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapsePolio">
+                                <i class="fas fa-prescription-bottle-alt me-2"></i>
+                                Polio (≤ 6 años)
+                                <span class="badge bg-danger ms-2">8</span>
+                            </button>
+                        </h2>
+                        <div id="collapsePolio" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Edad</th>
+                                                <th>Dosis Pendiente</th>
+                                                <th>Fecha Última Dosis</th>
+                                                <th>Sector</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos se llenarán dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Antiamarílica (AA) -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseAA">
+                                <i class="fas fa-shield-virus me-2"></i>
+                                Antiamarílica - AA (≥ 1 año)
+                                <span class="badge bg-danger ms-2">5</span>
+                            </button>
+                        </h2>
+                        <div id="collapseAA" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Edad</th>
+                                                <th>Dosis Pendiente</th>
+                                                <th>Fecha Última Dosis</th>
+                                                <th>Sector</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos se llenarán dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SRP -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                    data-bs-target="#collapseSRP">
+                                <i class="fas fa-virus-slash me-2"></i>
+                                SRP (≤ 18 meses)
+                                <span class="badge bg-danger ms-2">7</span>
+                            </button>
+                        </h2>
+                        <div id="collapseSRP" class="accordion-collapse collapse">
+                            <div class="accordion-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Edad</th>
+                                                <th>Dosis Pendiente</th>
+                                                <th>Fecha Última Dosis</th>
+                                                <th>Sector</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Los datos se llenarán dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Botones de Acción -->
+        <div class="d-flex justify-content-end gap-2 mb-4">
+            <button class="btn btn-success">
+                <i class="fas fa-file-excel me-2"></i>Exportar a Excel
+            </button>
+            <button class="btn btn-danger">
+                <i class="fas fa-file-pdf me-2"></i>Exportar a PDF
+            </button>
+            <button class="btn btn-primary">
+                <i class="fas fa-print me-2"></i>Imprimir
+            </button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
