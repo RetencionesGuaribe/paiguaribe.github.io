@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Pacientes - Sistema de Vacunación Infantil</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0">
+                            <i class="fas fa-search me-2"></i>Consulta de Pacientes
+                        </h2>
+                    </div>
+                    
+                    <div class="card-body">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="tipoBusqueda" class="form-label">Buscar por:</label>
+                                <select class="form-select" id="tipoBusqueda">
+                                    <option value="nombre">Nombre Completo</option>
+                                    <option value="numeroRegistro">Número de Registro</option>
+                                    <option value="nombreMadre">Nombre de la Madre</option>
+                                    <option value="sector">Sector</option>
+                                </select>
+                            </div>
+                            <div class="col-md-8">
+                                <label for="valorBusqueda" class="form-label">Valor a Buscar</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="valorBusqueda" 
+                                           placeholder="Ingrese el valor de búsqueda">
+                                    <button class="btn btn-primary" type="button" id="botonBuscar">
+                                        <i class="fas fa-search me-2"></i>Buscar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="resultadosBusqueda" class="mt-4">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Número Registro</th>
+                                        <th>Nombre Completo</th>
+                                        <th>Fecha Nacimiento</th>
+                                        <th>Representante</th>
+                                        <th>Sector</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cuerpoTabla">
+                                    <!-- Aquí se insertarán los resultados de búsqueda -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div id="paginacion" class="d-flex justify-content-center mt-3">
+                            <!-- Aquí irán los controles de paginación -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Detalles del Paciente -->
+    <div class="modal fade" id="modalDetallesPaciente" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Detalles del Paciente</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="contenidoModalDetalles">
+                    <!-- Datos Personales -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6 class="border-bottom pb-2">Información Personal</h6>
+                            <div class="mb-2"><strong>Nombre:</strong> <span id="nombrePaciente"></span></div>
+                            <div class="mb-2"><strong>Fecha de Nacimiento:</strong> <span id="fechaNacimiento"></span></div>
+                            <div class="mb-2"><strong>Número de Registro:</strong> <span id="numeroRegistro"></span></div>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="border-bottom pb-2">Información de Contacto</h6>
+                            <div class="mb-2"><strong>Dirección:</strong> <span id="direccion"></span></div>
+                            <div class="mb-2"><strong>Sector:</strong> <span id="sector"></span></div>
+                            <div class="mb-2"><strong>Nombre de la Madre:</strong> <span id="nombreMadre"></span></div>
+                        </div>
+                    </div>
+
+                    <!-- Registro de Vacunas -->
+                    <h5 class="border-bottom pb-2 mb-3">Registro de Vacunación</h5>
+                    <div class="row">
+                        <!-- Vacunas Básicas -->
+                        <div class="col-md-3 mb-4">
+                            <h6 class="text-primary mb-3">Vacunas Básicas</h6>
+                            <div class="mb-2"><strong>BCG:</strong> <span id="fechaBCG"></span></div>
+                            <div class="mb-2"><strong>Hepatitis B:</strong> <span id="fechaHepB"></span></div>
+                        </div>
+
+                        <!-- Pentavalente -->
+                        <div class="col-md-3 mb-4">
+                            <h6 class="text-primary mb-3">Pentavalente</h6>
+                            <div class="mb-2"><strong>Penta 1:</strong> <span id="fechaPenta1"></span></div>
+                            <div class="mb-2"><strong>Penta 2:</strong> <span id="fechaPenta2"></span></div>
+                            <div class="mb-2"><strong>Penta 3:</strong> <span id="fechaPenta3"></span></div>
+                            <div class="mb-2"><strong>Penta R1:</strong> <span id="fechaPentaR1"></span></div>
+                            <div class="mb-2"><strong>Penta R2:</strong> <span id="fechaPentaR2"></span></div>
+                        </div>
+
+                        <!-- Polio -->
+                        <div class="col-md-3 mb-4">
+                            <h6 class="text-primary mb-3">Polio</h6>
+                            <div class="mb-2"><strong>IPV 1:</strong> <span id="fechaIPV1"></span></div>
+                            <div class="mb-2"><strong>IPV 2:</strong> <span id="fechaIPV2"></span></div>
+                            <div class="mb-2"><strong>OPV 1:</strong> <span id="fechaOPV1"></span></div>
+                            <div class="mb-2"><strong>OPV R1:</strong> <span id="fechaOPVR1"></span></div>
+                            <div class="mb-2"><strong>OPV R2:</strong> <span id="fechaOPVR2"></span></div>
+                        </div>
+
+                        <!-- Otras Vacunas -->
+                        <div class="col-md-3 mb-4">
+                            <h6 class="text-primary mb-3">Otras Vacunas</h6>
+                            <div class="mb-2"><strong>AA:</strong> <span id="fechaAA"></span></div>
+                            <div class="mb-2"><strong>SRP 1:</strong> <span id="fechaSRP1"></span></div>
+                            <div class="mb-2"><strong>SRP 2:</strong> <span id="fechaSRP2"></span></div>
+                        </div>
+
+                        <!-- Toxoides (TD) -->
+                        <div class="col-12 mt-3">
+                            <h6 class="text-primary mb-3">Tétanos/Difteria (TD)</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-2"><strong>TD 1:</strong> <span id="fechaTD1"></span></div>
+                                    <div class="mb-2"><strong>TD 2:</strong> <span id="fechaTD2"></span></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-2"><strong>TD 3:</strong> <span id="fechaTD3"></span></div>
+                                    <div class="mb-2"><strong>TD 4:</strong> <span id="fechaTD4"></span></div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-2"><strong>TD 5:</strong> <span id="fechaTD5"></span></div>
+                                    <div class="mb-2"><strong>TD 6:</strong> <span id="fechaTD6"></span></div>
+                                </div>
+                            </div>
+                        </div>
+						<div class="text-center mt-3">
+    <button type="button" class="btn btn-warning" onclick="prepararEdicionVacunas(document.getElementById('numeroRegistro').textContent)">
+        <i class="fas fa-edit me-2"></i>Editar Vacunas
+    </button>
+</div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="window.print()">
+                        <i class="fas fa-print me-2"></i>Imprimir
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+	    <!-- Modal de Edición de Vacunas -->
+    <div class="modal fade" id="modalEditarVacunas" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title">Editar Registro de Vacunas</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <!-- Vacunas Básicas -->
+                        <div class="col-md-4">
+                            <h6>Vacunas Básicas</h6>
+                            <div class="mb-2">
+                                <label>BCG</label>
+                                <input type="date" id="editBCG" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Hepatitis B</label>
+                                <input type="date" id="editHepB" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Pentavalente -->
+                        <div class="col-md-4">
+                            <h6>Pentavalente</h6>
+                            <div class="mb-2">
+                                <label>Penta 1</label>
+                                <input type="date" id="editPenta1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Penta 2</label>
+                                <input type="date" id="editPenta2" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Penta 3</label>
+                                <input type="date" id="editPenta3" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Penta R1</label>
+                                <input type="date" id="editPentaR1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>Penta R2</label>
+                                <input type="date" id="editPentaR2" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Polio -->
+                        <div class="col-md-4">
+                            <h6>Polio</h6>
+                            <div class="mb-2">
+                                <label>IPV 1</label>
+                                <input type="date" id="editIPV1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>IPV 2</label>
+                                <input type="date" id="editIPV2" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>OPV 1</label>
+                                <input type="date" id="editOPV1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>OPV R1</label>
+                                <input type="date" id="editOPVR1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>OPV R2</label>
+                                <input type="date" id="editOPVR2" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Otras Vacunas -->
+                        <div class="col-md-4">
+                            <h6>Otras Vacunas</h6>
+                            <div class="mb-2">
+                                <label>AA</label>
+                                <input type="date" id="editAA" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>SRP 1</label>
+                                <input type="date" id="editSRP1" class="form-control">
+                            </div>
+                            <div class="mb-2">
+                                <label>SRP 2</label>
+                                <input type="date" id="editSRP2" class="form-control">
+                            </div>
+                        </div>
+
+                        <!-- Toxoides (TD) -->
+                        <div class="col-md-8">
+                            <h6>Tétanos/Difteria (TD)</h6>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="mb-2">
+                                        <label>TD 1</label>
+                                        <input type="date" id="editTD1" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>TD 2</label>
+                                        <input type="date" id="editTD2" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-2">
+                                        <label>TD 3</label>
+                                        <input type="date" id="editTD3" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>TD 4</label>
+                                        <input type="date" id="editTD4" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="mb-2">
+                                        <label>TD 5</label>
+                                        <input type="date" id="editTD5" class="form-control">
+                                    </div>
+                                    <div class="mb-2">
+                                        <label>TD 6</label>
+                                        <input type="date" id="editTD6" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" onclick="guardarVacunas()">
+                        <i class="fas fa-save me-2"></i>Guardar Cambios
+                    </button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="consulta.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>

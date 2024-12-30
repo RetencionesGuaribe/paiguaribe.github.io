@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Vacunación Infantil</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        .menu-card {
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .icon-large {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container">
+        <div class="row justify-content-center min-vh-100 align-items-center">
+            <div class="col-12 text-center mb-5">
+                <h1 class="display-4 text-primary mb-4">
+                    <i class="fas fa-hospital me-3"></i>
+                    Sistema de Vacunación Infantil
+                </h1>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <a href="registro.html" class="text-decoration-none">
+                    <div class="card menu-card h-100 shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-user-plus icon-large text-primary"></i>
+                            <h2 class="card-title mb-3">Registro de Pacientes</h2>
+                            <p class="card-text text-muted">
+                                Registre nuevos pacientes y su historial de vacunación en el sistema
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <a href="consulta.html" class="text-decoration-none">
+                    <div class="card menu-card h-100 shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-search icon-large text-primary"></i>
+                            <h2 class="card-title mb-3">Consulta de Pacientes</h2>
+                            <p class="card-text text-muted">
+                                Busque y visualice el historial de vacunación de los pacientes
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <a href="pendientes.html" class="text-decoration-none">
+                    <div class="card menu-card h-100 shadow">
+                        <div class="card-body text-center p-4">
+                            <i class="fas fa-calendar-check icon-large text-primary"></i>
+                            <h2 class="card-title mb-3">Vacunas Pendientes</h2>
+                            <p class="card-text text-muted">
+                                Visualice los pacientes que requieren vacunación por tipo y edad
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+            <div class="col-12 text-center mt-4">
+                <p class="text-muted">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Seleccione una opción para comenzar
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

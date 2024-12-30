@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Pacientes - Sistema de Vacunación Infantil</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="registro.js"></script>
+    <style>
+        .tab-content {
+            padding: 20px;
+            border: 1px solid #dee2e6;
+            border-top: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">
+                    <i class="fas fa-user-plus me-2"></i>Registro de Paciente
+                </h2>
+            </div>
+            
+            <div class="card-body">
+                <form id="formulario-registro">
+                    <ul class="nav nav-tabs" id="registroTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="datosPersonales-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#datosPersonales" type="button" role="tab">
+                                <i class="fas fa-user me-2"></i>Datos Personales
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="vacunas-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#vacunas" type="button" role="tab">
+                                <i class="fas fa-syringe me-2"></i>Registro de Vacunas
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="toxoides-tab" data-bs-toggle="tab" 
+                                    data-bs-target="#toxoides" type="button" role="tab">
+                                <i class="fas fa-shield-virus me-2"></i>Toxoides
+                            </button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="registroTabsContent">
+                        <!-- Datos Personales -->
+                        <div class="tab-pane fade show active" id="datosPersonales" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="nombreCompleto" class="form-label">Nombres y Apellidos</label>
+                                    <input type="text" class="form-control" id="nombreCompleto" required 
+                                           placeholder="Ingrese nombres y apellidos completos">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="fechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                    <input type="date" class="form-control" id="fechaNacimiento" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="numeroRegistro" class="form-label">Número de Registro</label>
+                                    <input type="text" class="form-control" id="numeroRegistro" 
+                                           placeholder="Ej: 22 24" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="direccion" class="form-label">Dirección</label>
+                                    <input type="text" class="form-control" id="direccion" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+    <label class="form-label">Referencia</label>
+    <input type="text" class="form-control" id="sector" placeholder="Ingrese referencia">
+</div>
+<div class="col-md-4 mb-3">
+    <label for="numeroPagina" class="form-label">Número de Página</label>
+    <input type="number" class="form-control" id="numeroPagina" placeholder="Ingrese número de página">
+</div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="nombreMadre" class="form-label">Nombre de la Madre</label>
+                                    <input type="text" class="form-control" id="nombreMadre" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Registro de Vacunas -->
+                        <div class="tab-pane fade" id="vacunas" role="tabpanel">
+                            <div class="row">
+                                <!-- Vacunas Básicas -->
+                                <div class="col-md-3">
+                                    <h5>Vacunas Básicas</h5>
+                                    <div class="mb-3">
+                                        <label for="fechaBCG" class="form-label">BCG (Primer mes)</label>
+                                        <input type="date" class="form-control" id="fechaBCG">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaHepatitisB" class="form-label">Hepatitis B (Primera semana)</label>
+                                        <input type="date" class="form-control" id="fechaHepatitisB">
+                                    </div>
+                                </div>
+
+                                <!-- Pentavalente -->
+                                <div class="col-md-3">
+                                    <h5>Pentavalente</h5>
+                                    <div class="mb-3">
+                                        <label for="fechaPenta1" class="form-label">Penta 1 (2 meses)</label>
+                                        <input type="date" class="form-control" id="fechaPenta1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaPenta2" class="form-label">Penta 2 (4 meses)</label>
+                                        <input type="date" class="form-control" id="fechaPenta2">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaPenta3" class="form-label">Penta 3 (6 meses)</label>
+                                        <input type="date" class="form-control" id="fechaPenta3">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaPentaR1" class="form-label">Penta R1 (18 meses)</label>
+                                        <input type="date" class="form-control" id="fechaPentaR1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaPentaR2" class="form-label">Penta R2 (5 años)</label>
+                                        <input type="date" class="form-control" id="fechaPentaR2">
+                                    </div>
+                                </div>
+
+                                <!-- Polio -->
+                                <div class="col-md-3">
+                                    <h5>Polio</h5>
+                                    <div class="mb-3">
+                                        <label for="fechaIPV1" class="form-label">IPV 1 (2 meses)</label>
+                                        <input type="date" class="form-control" id="fechaIPV1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaIPV2" class="form-label">IPV 2 (4 meses)</label>
+                                        <input type="date" class="form-control" id="fechaIPV2">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaOPV1" class="form-label">OPV 1 (6 meses)</label>
+                                        <input type="date" class="form-control" id="fechaOPV1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaOPVR1" class="form-label">OPV R1 (18 meses)</label>
+                                        <input type="date" class="form-control" id="fechaOPVR1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaOPVR2" class="form-label">OPV R2 (5 años)</label>
+                                        <input type="date" class="form-control" id="fechaOPVR2">
+                                    </div>
+                                </div>
+
+                                <!-- Otras Vacunas -->
+                                <div class="col-md-3">
+                                    <h5>Otras Vacunas</h5>
+                                    <div class="mb-3">
+                                        <label for="fechaAA" class="form-label">AA (12 meses)</label>
+                                        <input type="date" class="form-control" id="fechaAA">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaSRP1" class="form-label">SRP 1 (12 meses)</label>
+                                        <input type="date" class="form-control" id="fechaSRP1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaSRP2" class="form-label">SRP 2 (18 meses)</label>
+                                        <input type="date" class="form-control" id="fechaSRP2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Toxoides -->
+                        <div class="tab-pane fade" id="toxoides" role="tabpanel">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h5>Tétanos/Difteria</h5>
+                                    <div class="mb-3">
+                                        <label for="fechaTD1" class="form-label">TD 1 (10 años)</label>
+                                        <input type="date" class="form-control" id="fechaTD1">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaTD2" class="form-label">TD 2 (+1 mes)</label>
+                                        <input type="date" class="form-control" id="fechaTD2">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaTD3" class="form-label">TD 3 (+6 meses)</label>
+                                        <input type="date" class="form-control" id="fechaTD3">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaTD4" class="form-label">TD 4 (+1 año)</label>
+                                        <input type="date" class="form-control" id="fechaTD4">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaTD5" class="form-label">TD 5 (+1 año)</label>
+                                        <input type="date" class="form-control" id="fechaTD5">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="fechaTD6" class="form-label">TD 6 (+5 años)</label>
+                                        <input type="date" class="form-control" id="fechaTD6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Botones -->
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-primary">Registrar</button>
+                        <button type="reset" class="btn btn-secondary">Limpiar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
